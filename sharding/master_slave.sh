@@ -2,7 +2,7 @@
 #docker run -d -e MYSQL_ROOT_PASSWORD=123456 --name mysql-slave -v $HOME/sharding/sharding/db_conf/slave.cnf:/etc/mysql/my.cnf -p 3307:3306 mysql
 
 docker run -d -e MYSQL_ROOT_PASSWORD=123456 --name mysql-master -p 3306:3306 mysql &&\
-docker run -d -e MYSQL_ROOT_PASSWORD=123456 --name mysql-slave -p 3307:3306 mysql
+docker run -d -e MYSQL_ROOT_PASSWORD=123456 --name mysql-slave -p 3306:3306 mysql
 
 #
 #mysql> create database sphere0;

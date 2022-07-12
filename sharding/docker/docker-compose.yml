@@ -1,0 +1,22 @@
+version: '3'
+services:
+  mysql-1:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345
+      - name=mysql-ds0
+    command: --init-file /data/application/init.sql
+    volumes:
+      - ./init_db.sql:/data/application/init.sql
+  mysql-2:
+    image: mysql:latest
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345
+      - name=mysql-ds1
+    command: --init-file /data/application/init.sql
+    volumes:
+      - ./init_db1.sql:/data/application/init.sql

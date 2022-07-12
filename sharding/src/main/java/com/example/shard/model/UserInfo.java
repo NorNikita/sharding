@@ -6,18 +6,21 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name ="userinfo")
-public class UserInfo {
+@Table(name ="userinfo_0")
+public final class UserInfo implements Serializable {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+//    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column
+
+    @Column(name = "name")
     private String name;
 }

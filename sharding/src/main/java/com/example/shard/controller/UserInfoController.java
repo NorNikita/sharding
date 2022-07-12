@@ -2,6 +2,7 @@ package com.example.shard.controller;
 
 import com.example.shard.model.UserInfo;
 import com.example.shard.repo.UserRepository;
+import com.example.shard.repo.UserRepositoryJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,15 +16,20 @@ public class UserInfoController {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    private UserRepositoryJpa repositoryJpa;
+
     @GetMapping("/userinfo")
     public List<UserInfo> getUserInfos() throws SQLException {
         return repository.selectAll();
+//        return repositoryJpa.findAll();
     }
 
     @GetMapping("/userinfo/{name}")
     public Long addUserInfo(@PathVariable String name) throws SQLException {
         UserInfo userInfo = new UserInfo();
         userInfo.setName(name);
-        return repository.insert(userInfo);
+//        return repository.insert(userInfo);
+        return repositoryJpa.save(userInfo).getId();
     }
 }

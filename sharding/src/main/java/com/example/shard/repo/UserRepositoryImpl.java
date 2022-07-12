@@ -30,19 +30,23 @@ public final class UserRepositoryImpl implements UserRepository {
     public Long insert(final UserInfo entity) throws SQLException {
 //        entityManager.persist(entity);
 //        return null;
-        String sql = "INSERT INTO userinfo (id, name) VALUES (?, ?)";
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setLong(1, entity.getId());
-            preparedStatement.setString(2, entity.getName());
+        String sql = "INSERT INTO userinfo_0 (name) VALUES (?)";
+        try (Connection connection = dataSource.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, entity.getName());
             preparedStatement.executeUpdate();
+            try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    entity.setId(resultSet.getLong(1));
+                }
+            }
         }
         return entity.getId();
     }
 
     @Override
     public List<UserInfo> selectAll() throws SQLException {
-        String sql = "SELECT * FROM userinfo";
+        String sql = "SELECT * FROM userinfo_0";
         return getAddress(sql);
     }
 
