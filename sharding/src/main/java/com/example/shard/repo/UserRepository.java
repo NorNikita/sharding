@@ -9,4 +9,6 @@ public interface UserRepository {
     Long insert(final UserInfo entity) throws SQLException;
 
     List<UserInfo> selectAll() throws SQLException;
+
+    List<UserInfo> selectWhereDayGrateThan(Long begin, Long end) throws SQLException;
 }

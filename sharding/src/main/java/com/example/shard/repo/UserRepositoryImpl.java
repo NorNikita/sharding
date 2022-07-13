@@ -30,7 +30,7 @@ public final class UserRepositoryImpl implements UserRepository {
     public Long insert(final UserInfo entity) throws SQLException {
 //        entityManager.persist(entity);
 //        return null;
-        String sql = "INSERT INTO userinfo_0 (name) VALUES (?)";
+        String sql = "INSERT INTO userinfo (name, dayss) VALUES (?, ?)";
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, entity.getName());
@@ -46,9 +46,34 @@ public final class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<UserInfo> selectAll() throws SQLException {
-        String sql = "SELECT * FROM userinfo_0";
+        String sql = "SELECT * FROM userinfo";
         return getAddress(sql);
     }
+
+    @Override
+    public List<UserInfo> selectWhereDayGrateThan(Long begin, Long end) throws SQLException {
+        String sql = "SELECT * FROM userinfo u WHERE u.days >= ? and u.days <= ?";
+
+        List<UserInfo> result = new LinkedList<>();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setLong(1, begin);
+            preparedStatement.setLong(2, end);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                UserInfo info = new UserInfo();
+                info.setId(resultSet.getLong(1));
+                info.setName(resultSet.getString(2));
+                info.setDays(resultSet.getLong(3));
+                result.add(info);
+            }
+        }
+        return result;
+    }
+
 
     private List<UserInfo> getAddress(final String sql) throws SQLException {
         List<UserInfo> result = new LinkedList<>();
@@ -59,6 +84,7 @@ public final class UserRepositoryImpl implements UserRepository {
                 UserInfo info = new UserInfo();
                 info.setId(resultSet.getLong(1));
                 info.setName(resultSet.getString(2));
+                info.setDays(resultSet.getLong(3));
                 result.add(info);
             }
         }

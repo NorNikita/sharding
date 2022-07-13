@@ -13,14 +13,17 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name ="userinfo_0")
+@Table(name ="userinfo")
 public final class UserInfo implements Serializable {
 
     @Id
-//    @Column(name = "id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "days")
+    private Long days;
 }

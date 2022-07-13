@@ -3,6 +3,7 @@ package com.example.shard.controller;
 import com.example.shard.model.UserInfo;
 import com.example.shard.repo.UserRepository;
 import com.example.shard.repo.UserRepositoryJpa;
+import org.hibernate.engine.jdbc.env.spi.AnsiSqlKeywords;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,14 +23,25 @@ public class UserInfoController {
     @GetMapping("/userinfo")
     public List<UserInfo> getUserInfos() throws SQLException {
         return repository.selectAll();
-//        return repositoryJpa.findAll();
+//        return repositoryJpa.findAll(); с jpa repository не работает корректно
+    }
+    @GetMapping("/userinfo/{count}")
+    public List<UserInfo> getUserInfos(@PathVariable Long count) throws SQLException {
+        return repositoryJpa.findUserInfosByDaysGreaterThan(count);
     }
 
-    @GetMapping("/userinfo/{name}")
-    public Long addUserInfo(@PathVariable String name) throws SQLException {
+    @GetMapping("/interval/{begin}/{end}")
+    public List<UserInfo> searchInInterval(@PathVariable Long begin, @PathVariable Long end) throws SQLException {
+        return repository.selectWhereDayGrateThan(begin, end);
+    }
+
+    @GetMapping("/userinfo/{name}/{days}")
+    public Long addUserInfo(@PathVariable String name, @PathVariable Long days) throws SQLException {
         UserInfo userInfo = new UserInfo();
         userInfo.setName(name);
+        userInfo.setDays(days);
 //        return repository.insert(userInfo);
-        return repositoryJpa.save(userInfo).getId();
+        UserInfo userInfo1 = repositoryJpa.save(userInfo);
+        return userInfo1.getId();
     }
 }
