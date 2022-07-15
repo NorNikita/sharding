@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface UserRepositoryJpa extends JpaRepository<UserInfo, Long> {
 
-    List<UserInfo> findUserInfosByDaysGreaterThan(Long count);
+    List<UserInfo> findUserInfosByIdGreaterThan(Long count);
+
+    UserInfo findUserInfosByDays(Long days);
 }

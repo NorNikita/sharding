@@ -1,22 +1,24 @@
 version: '3'
 services:
-  mysql-1:
-    image: mysql:latest
+  psql-1:
+    image: postgres:latest
+    container_name: db0
     ports:
-      - "3306:3306"
+      - "5432:5432"
     environment:
-      - MYSQL_ROOT_PASSWORD=12345
-      - name=mysql-ds0
-    command: --init-file /data/application/init.sql
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: sphere0
+      SCHEMA: public
     volumes:
-      - ./init_db.sql:/data/application/init.sql
-  mysql-2:
-    image: mysql:latest
+      - ./init_db.sql:/docker-entrypoint-initdb.d/dump.sql
+  psql-2:
+    image: postgres:latest
+    container_name: db1
     ports:
-      - "3307:3306"
+      - "5433:5432"
     environment:
-      - MYSQL_ROOT_PASSWORD=12345
-      - name=mysql-ds1
-    command: --init-file /data/application/init.sql
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: sphere0
+      SCHEMA: public
     volumes:
-      - ./init_db1.sql:/data/application/init.sql
+      - ./init_db1.sql:/docker-entrypoint-initdb.d/dump.sql

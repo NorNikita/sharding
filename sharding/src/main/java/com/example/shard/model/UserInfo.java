@@ -26,4 +26,7 @@ public final class UserInfo implements Serializable {
 
     @Column(name = "days")
     private Long days;
+
+    @Column(name = "uuid")
+    private String uuid;
 }
