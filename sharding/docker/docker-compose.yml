@@ -22,3 +22,14 @@ services:
       SCHEMA: public
     volumes:
       - ./init_db1.sql:/docker-entrypoint-initdb.d/dump.sql
+  psql-3:
+    image: postgres:latest
+    container_name: db2
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: sphere0
+      SCHEMA: public
+    volumes:
+      - ./init_db1.sql:/docker-entrypoint-initdb.d/dump.sql

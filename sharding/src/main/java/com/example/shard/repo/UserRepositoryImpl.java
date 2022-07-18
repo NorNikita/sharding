@@ -30,10 +30,11 @@ public final class UserRepositoryImpl implements UserRepository {
     public Long insert(final UserInfo entity) throws SQLException {
 //        entityManager.persist(entity);
 //        return null;
-        String sql = "INSERT INTO userinfo (name, dayss) VALUES (?, ?)";
+        String sql = "INSERT INTO userinfo (name, days) VALUES (?, ?)";
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, entity.getName());
+            preparedStatement.setString(2, entity.getName());
             preparedStatement.executeUpdate();
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
                 if (resultSet.next()) {

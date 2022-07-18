@@ -1,13 +1,17 @@
 package com.example.shard.configuration;
 
-import org.apache.shardingsphere.api.sharding.standard.PreciseShardingAlgorithm;
-import org.apache.shardingsphere.api.sharding.standard.PreciseShardingValue;
+import org.apache.shardingsphere.sharding.api.sharding.standard.PreciseShardingValue;
+import org.apache.shardingsphere.sharding.api.sharding.standard.RangeShardingValue;
+import org.apache.shardingsphere.sharding.api.sharding.standard.StandardShardingAlgorithm;
 
 import java.util.Collection;
+import java.util.Properties;
 
-public final class ShardingOnNodes implements PreciseShardingAlgorithm<Long> {
+public final class ShardingOnNodes implements StandardShardingAlgorithm<Long> {
 
     private final int countNodes = 2;
+
+    private Properties properties;
 
     @Override
     public String doSharding(Collection<String> availableTargetNames, PreciseShardingValue<Long> shardingValue) {
@@ -18,12 +22,27 @@ public final class ShardingOnNodes implements PreciseShardingAlgorithm<Long> {
 //
 //        String indexNode = String.valueOf(hash % countNodes);
 
-        String s = String.valueOf(shardingValue.getValue() % 2);
+        String s = String.valueOf(shardingValue.getValue() % 3);
         for (String nodeName : availableTargetNames) {
             if (nodeName.contains(s)) {
                 return  nodeName;
             }
         }
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Collection<String> doSharding(Collection<String> collection, RangeShardingValue<Long> rangeShardingValue) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Properties getProps() {
+        return this.properties;
+    }
+
+    @Override
+    public void init(Properties properties) {
+        this.properties = properties;
     }
 }
