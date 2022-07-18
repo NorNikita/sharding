@@ -2,5 +2,6 @@ create table userinfo (
     id serial not null primary key,
     name varchar(255) default null,
     days bigint default null,
-    uuid varchar(255) default null
+    uuid varchar(255) default null,
+    time_operation timestamp default null
 );
