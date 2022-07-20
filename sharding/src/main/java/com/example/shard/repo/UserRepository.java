@@ -1,6 +1,6 @@
 package com.example.shard.repo;
 
-import com.example.shard.model.UserInfo;
+import com.example.shard.model.entity.UserInfo;
 
 import java.sql.SQLException;
 import java.util.List;

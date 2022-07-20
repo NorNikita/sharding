@@ -1,9 +1,7 @@
 package com.example.shard.repo;
 
-import com.example.shard.model.UserInfo;
-import org.apache.catalina.User;
+import com.example.shard.model.entity.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
@@ -20,11 +18,6 @@ public final class UserRepositoryImpl implements UserRepository {
     private DataSource dataSource;
     @PersistenceContext
     private EntityManager entityManager;
-
-//    @Autowired
-//    public UserRepositoryImpl(@Qualifier("master") DataSource dataSource) {
-//        this.dataSource = dataSource;
-//    }
 
     @Override
     public Long insert(final UserInfo entity) throws SQLException {

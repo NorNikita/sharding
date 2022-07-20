@@ -1,4 +1,4 @@
-package com.example.shard.model;
+package com.example.shard.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +31,6 @@ public final class UserInfo implements Serializable {
     @Column(name = "uuid")
     private String uuid;
 
-//    @Column(name = "date")
-//    private LocalDateTime timestamp;
+    @Column(name = "time_operation")
+    private LocalDateTime timestamp;
 }
