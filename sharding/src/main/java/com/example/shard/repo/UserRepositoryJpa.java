@@ -1,6 +1,7 @@
 package com.example.shard.repo;
 
 import com.example.shard.model.entity.UserInfo;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
@@ -14,5 +15,5 @@ public interface UserRepositoryJpa extends JpaRepository<UserInfo, Long> {
      * @param end
      * @return
      */
-    List<UserInfo> findUserInfosByTimestampAfterAndTimestampBefore(LocalDateTime begin, LocalDateTime end);
+    List<UserInfo> findUserInfosByTimeOperationAfterAndTimeOperationBefore(LocalDateTime begin, LocalDateTime end, Pageable pageable);
 }

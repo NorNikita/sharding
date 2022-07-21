@@ -32,5 +32,5 @@ public final class UserInfo implements Serializable {
     private String uuid;
 
     @Column(name = "time_operation")
-    private LocalDateTime timestamp;
+    private LocalDateTime timeOperation;
 }
